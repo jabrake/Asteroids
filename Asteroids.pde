@@ -2,6 +2,7 @@ import java.util.Iterator;
 
 Spaceship ship;
 ParticleSystem ps;
+Repeller repeller;
 float sizeShip = 16;
 float heading = 0;
 
@@ -9,13 +10,11 @@ void setup() {
   size(600, 600);
   ship = new Spaceship();
   ps = new ParticleSystem(new PVector(width/2, 50));
+  repeller  = new Repeller(width/2-20, height/2);
 }
 
 void draw() {
   background(0);
-  
-  PVector particleThrust = new PVector(0,0.05);
-  ps.applyForce(particleThrust);
 
   fill(255);
   text("LEFT and RIGHT to turn", 10, 15);
@@ -23,9 +22,12 @@ void draw() {
   text("B to thrust backwards", 10, 45);
   text("L and R to spin", 10, 60);
   text("Z to stop", 10, 75);
+  
+  ps.applyRepeller(repeller);
+  repeller.display();
 
   //Stars
-  rect(random(width), random(height), random(0, 10), random(0, 10));
+  //rect(random(width), random(height), random(0, 10), random(0, 10));
 
   ship.update();
   ship.bounce();
@@ -44,6 +46,10 @@ void draw() {
       ship.thrust();
       fill(175);
       float angle = heading - PI/2;
+
+      PVector particleThrust = new PVector(0.05, 0);
+      ps.applyForce(particleThrust);
+
       ps.addParticle();
       ps.run();
     }

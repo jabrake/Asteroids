@@ -25,7 +25,7 @@ class Particle {
   void display() {
     stroke(random(255), 0, 0, lifespan);
     fill(random(255), 0, 0, lifespan);
-    point(location.x, location.y);
+    ellipse(location.x, location.y, 5, 5);
   }
 
   void applyForce(PVector force) {

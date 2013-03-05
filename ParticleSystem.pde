@@ -17,6 +17,13 @@ class ParticleSystem {
     }
   }
 
+  void applyRepeller(Repeller r) {
+    for (Particle p: particles) {
+      PVector force = r.repel(p);
+      p.applyForce(force);
+    }
+  }
+
   void run() {
     Iterator<Particle> it = particles.iterator();
     while (it.hasNext ()) {
